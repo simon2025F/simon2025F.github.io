@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Timeline of the oil revolution</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                background-color: rgb(31, 31, 31);
+                font-family: 'Arial Black';
+                line-height: 1.2;
+                color: white;
+                font-size: 18px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0 20px;
+                overflow-x: hidden; 
+                overflow-y: auto;
+            }
+            h1 {
+                font-size: 38px;
+            }
+            p {
+                font-family: 'Arial';
+                line-height: 1.6;
+                font-size: 18px;
+                color: rgb(150,150,150);
+            }
+            p.main-text {
+                font-family: 'Arial';
+                line-height: 1.6;
+                font-size: 20px;
+                color: rgb(220,220,220);
+            }
+            .mainflex-container {
+                max-width: 500px;     
+                width: 100%;          
+                text-align: left;
+                margin-bottom: 200px;
+                /*margin-right: 200px;*/
+                /*padding: 0 20px;*/
+            }
+            /*
+            .flex-container {
+                max-width: 500px;     
+                width: 100%;          
+                text-align: left;
+                margin-top: 100px;
+                margin-right: 400px;
+                padding: 0 20px;
+            }
+            .image-container {
+                max-width: 500px;     
+                width: 100%;          
+                margin-top: -250px;
+                margin-left: 900px;
+                padding: 0 20px;
+            }
+            */
+            .page-content {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 40px;
+                max-width: 1000px;
+                width: 100%;
+                padding: 0 20px;
+                box-sizing: border-box;
+                margin-top: 30px;
+            }
+            .text-container {
+                flex: 1;
+                min-width: 0;
+            }
+            .image-container {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                flex-shrink: 0;
+            }
+            .image-container img {
+                width: 350px;
+                height: auto;
+                border-radius: 5px;
+            }
+            
+            .mainpage {
+                min-width: 100vw;
+                width: 100%;
+                max-width: 100%;
+                margin-top: 20px;
+
+                transition: transform 0.6s ease;
+                display: flex;           
+                justify-content: center; 
+                flex-direction: column;
+                align-items: center;
+            }
+            #page-wrapper {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                transition: transform 0.6s ease;
+            }
+            .page {
+                min-width: 100vw;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .flags {
+                display: flex;
+                gap: 10px;      
+                margin-top: 20px;
+                justify-content: center;
+            }
+            .next-btn, .back-btn {
+                position: fixed;
+                right: 30px;
+                top: 50%;
+                transform: translateY(-50%);
+
+                width: 60px;
+                height: 60px;
+
+                border-radius: 50%;
+                border: none;
+
+                background-color: rgb(60, 60, 60);
+                color: white;
+
+                font-size: 28px;
+                cursor: pointer;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                box-shadow: 0 0 10px rgba(0,0,0,0.4);
+
+                z-index: 99;
+                transition: 0.2s;
+            }
+            .timetext {
+                font-family: 'Arial Black';
+                font-size: 50px;
+                display: block;
+                text-align: center;
+                margin-top: 70px;
+                text-decoration: underline;
+            }
+
+            .next-btn:hover, .back-btn:hover {
+                background-color: rgb(90, 90, 90);
+            }
+            .next-btn { 
+                right: 30px; 
+            }
+            .back-btn { 
+                left: 30px; 
+            }
+            #timeline-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+                padding: 10px 80px;
+                box-sizing: border-box;
+                background-color: rgba(31, 31, 31, 0.92);
+                z-index: 98;
+            }
+            .timeline-seg {
+                flex: 1;
+                max-width: 50px;
+                height: 8px;
+                border-radius: 4px;
+                background-color: rgb(75, 75, 75);
+                transition: background-color 0.3s;
+            }
+            .timeline-seg.active {
+                background-color: rgb(59, 130, 246);
+            }
+        </style>
+    </head>
+    <body>
+        <button class="next-btn" onclick="nextPage()">></button>
+        <button class="back-btn" onclick="prevPage()" style="display: none;"><</button>
+        <div id="timeline-bar"></div>
+        <div id="page-wrapper">
+        <div class="mainpage" id="page1">
+            <div class="mainflex-container">
+            <h1>
+                A timeline of the Gulf countries' oil revolution
+            </h1>
+            <p>
+                Spans nearly 100 years and provides insight on several countries in 
+                the MENA Region. Contains many images and resources for further
+                reading. Made by Simon Bullotta. Enjoy!
+            </p>
+            <div class="flags">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg" width="300" height="65">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg" width="300" height="65">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg" width="300" height="65">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg" width="300" height="65">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" width="300" height="65">
+            </div>            
+            </div>
+        </div>
+
+        <div class="page" id="page2">
+            <h2 class="timetext">Pre-1932</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        The search for oil began due to a few mounting factors: The Anglo-Persian Oil Company had previously discovered oil in Persia, 
+                        the demand for oil rose greatly due to WWI, and the Great Depression hurt west Saudi Arabia greatly, requiring them to look for 
+                        a different source of income.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Anglo-Persian_Oil_Company_workers_%281%29.jpg" 
+                    width="400" title="Oil discovered in Bahrain previously">
+                    <img src="https://images.squarespace-cdn.com/content/v1/5cc86b5ae5f7d1749d7d0d47/1583775396529-MU66PCSHAOEAWHCF935M/image-asset.png" 
+                    width="400" title="Oil tanker vechile">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page3">
+            <h2 class="timetext">1932</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Bahrain Petroleum Company discovers oil in Bahrain. They build a oil well, and it produces roughly 400 oil barrels per
+                        hour, shifting the local economy to focus on oil well construction and refining. This moment sparks motivation to search 
+                        for oil across the rest of the Arabian peninsula.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/First-oil-well-in-bahrain.jpg" 
+                    width="400" title="First oil well in Bahrain, discvoered in 1932">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page4">
+            <h2 class="timetext">1938</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        On March 3, 1938, the California Arabian Standard Oil Company ("CASOC") finally uncovered oil in Saudi Arabia. 
+                        Also in this year, oil was discovered in Kuwait at Burgan field (Abd el-aal et al. 117–144).
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Dammam_No._7_on_March_4%2C_1938.jpg" 
+                    width="400" title="The first commercial oil well in Saudi Arabia">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page5">
+            <h2 class="timetext">1939-1945</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        The upheaval caused by WWII slowed down oil production in Saudi Arabia significantly. Some of the factors include foreign 
+                        experts leaving to go home, disrupted shipping routes like the Mediterranean sea, and, in 1940, "Italian aircraft bombed Dhahran, 
+                        where CASOC was headquartered" (ARAMCO). 
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Savoia-Marchetti_SM.82_02.jpg/1280px-Savoia-Marchetti_SM.82_02.jpg" 
+                    width="400" title="Plane similar to that used in the Italian raid">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/A_view_of_the_Bahrein_Refinery%2C_1949.jpg" 
+                    width="400" title="Arial view of Bahrain Refinery">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page6">
+            <h2 class="timetext">1950</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Saudi Arabia adjusts its share of revenue to a fifty-fifty split, meaning that the oil companies get half and the government 
+                        gets half. This tax significantly increased the government's revenue, and soon after, other countries like Kuwait and Qatar 
+                        followed suit.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Aramco_compound_in_Saudi_Arabia_1954.jpg/1280px-Aramco_compound_in_Saudi_Arabia_1954.jpg" 
+                    width="400" title="Aramco compound in Saudi Arabia 1954">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page7">
+            <h2 class="timetext">1951-1960</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Due to the massive increase in government revenue, the Saudi Arabia economy grew and much infrastructure was 
+                        built, including more roads, airports, and hospitals.<br><br>Construction of Trans-Arabian Pipeline, a oil pipe
+                        from Qaisumah in Saudi Arabia to Sidon in Lebanon, was finished in 1950 and began use. The pipe increased the
+                        global trade of petroleum, increased America and Saudi Arabia's relationship, and helped grow Lebanon economically.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://sothebys-md.brightspotcdn.com/dims4/default/a018c8a/2147483647/strip/true/crop/2000x1568+0+0/resize/2048x1606!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2Fc0%2F73%2F7f433a324354a7d73bc5e4b8b80a%2Fl20401-bj4fq-1.jpg"
+                    width="400" title="Construction of the Trans-Arabian Pipeline in Saudi Arabia 1950s">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Flying_over_the_Trans-Arabian_Pipeline.jpg"
+                    width="400" title="The finished pipeline">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page8">
+            <h2 class="timetext">1961</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        On June 19, 1961, Kuwait gained independence from Britain "after being under their rule for 62 years" (Al Mulla). Kuwait
+                        therefore now had control over its own oil production.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://kuwaittimes.com/uploads/imported_images/uploads/2017/06/Sheikh-Abdullah.jpg"
+                    width="400" title="Construction of the Trans-Arabian Pipeline in Saudi Arabia 1950s">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page9">
+            <h2 class="timetext">1962-1970</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Saudi Arabia's economy continued to grow further. Due to partnership with US construction companies, the government 
+                        was modernized, television and broadcast facilities were built, and its defense industry expanded (Wright 152).<br><br>
+                        The Organization of the Petroleum Exporting Countries ("OPEC"), founded in 1960, now began restructuring the global system for
+                        oil in the favor of its member countries. They fought back against the Seven Sisters oil firms, which were owned by
+                        America, British, and Dutch companies, aiming to restore national sovereignty over natural resources. 
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://saudipedia.com/var/site/storage/images/_aliases/gallery_carousel_2x/9/8/4/9/1249489-1-eng-GB/daa114c4d2fb-196662.jpg.webp"
+                    width="400" title="A family enjoying television">
+                    <img src="https://www.opec.org/assets/gallery/pic/1738932600.jpg"
+                    width="400" title="An OPEC conference in November 1964">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page10">
+            <h2 class="timetext">1971</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Bahrain, Qatar, and UAE became independent from British rule all in 1971 (Urkevich). This drew more power away from foreign
+                        actors on the oil industry.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://www.mbma.gov.bh/wp-content/uploads/2024/10/FILE-140-207.jpeg"
+                    width="400" title="Sheikh Isa declaring Bahrain's independence in 1971">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page11">
+            <h2 class="timetext">1973</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Due to the Yom Kippur War, the Organization of Arab Petroleum Exporting Countries ("OAPEC"), which consists of 
+                        countries like Saudi Arabia, Qatar, Syria, and Kuwait, implemented an oil embargo against countries that supported 
+                        Israel in the war. As a result, oil prices immediately shot up and over doubled in price (US Government). This event became
+                        known as the 1973 oil crisis.<br><br>Even though 
+                        they ended the embargo in 1974, oil prices continued to rise, and the event made other countries realize they maybe 
+                        shouldn't be so reliant on OAPEC oil. But as a natural side effect, the increase in oil prices generated OAPEC countries 
+                        massive amounts of money, and for countries like Saudi Arabia, also more politcal influence.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/West_Texas_Intermediate_oil_prices_1950%E2%80%932000_%28with_1973_highlight%29.svg/1920px-West_Texas_Intermediate_oil_prices_1950%E2%80%932000_%28with_1973_highlight%29.svg.png"
+                    width="400" title="Price of oil over time">
+                    <img src="https://www.energypolicy.columbia.edu/wp-content/uploads/2023/09/GASOLINE_SHORTAGE_HIT_THE_STATE_OF_OREGON_IN_THE_FALL_OF_1973_BY_MIDDAY_GASOLINE_WAS_BECOMING_UNAVAILABLE_ALONG._-_NARA_-_555405.jpg"
+                    width="400" title="Closed oil pumps in Oregon">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page12">
+            <h2 class="timetext">1974-1976</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Saudi Arabia became the largest oil producer in the world. Infrastructure and education continued to be developed and advanced, 
+                        and they became closer tied to the United States. By this point, the goverment had 60% ownership of Aramco.<br><br>
+                        UAE also founded the Abu Dhabi Investment Authority ("ADIA"), which invests 
+                        money from budget surpluses (mostly money from oil revenue) into stocks, bonds, real estate, etc. The ADIA has generated UAE 
+                        massive amounts of money, having about $1.1 trillion in assets today (SWFI).
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://pbs.twimg.com/media/DOmgr5RX4AAJ3gB?format=jpg&name=900x900"
+                    width="400" title="Picture of Saudi Arabia in 1975">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page13">
+            <h2 class="timetext">1980-1989</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In Saudi Aarbia, more technological advancements came: the city became more urbanized and skyscrapers were built, 
+                        public education became massively available, and more media outlets were made. Also this year, they claimed 100%
+                        full ownership of Aramco, generating the government massive amounts of money.<br><br>
+
+                        The 80s saw an oversupply in the amount of oil harvested versus the demand, and as a result, oil prices
+                        had crashed to below $10 per barrel in 1986 versus $35 per barrel in 1980. This event became known as the
+                        1980s oil glut, and it was partially due to countries learning to use less oil as a result of the 1973 crisis.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://www.aramcolife.com/-/media/aramco-life/publications/the-arabian-sun/articles/2023/week-22-photos/90th-timeline/saudi-government-finishes-purchase-of-aramco.jpg?cx=0.5&cy=0.5&cw=750&ch=415&hash=FBDB6BFF663A5BB07C0F33C50040823A"
+                    width="400" title="Aramco headquarters in 1980">
+                    <img src="https://alchetron.com/cdn/1980s-oil-glut-b4753fbb-c3a7-41cf-aa35-2ba0fcb7b48-resize-750.jpg"
+                    width="400" title="Oil glut in the 80s">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page14">
+            <h2 class="timetext">1990-1991</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In 1990, under Saddam Hussein's rule, Iraq invaded Kuwait; this started the Gulf War. Iraq forces burned hundreds
+                        of Kuwait's oil wells, and as a result, Kuwait's oil production stopped almost completely, leading to oil prices to 
+                        nearly double in the few months after the onset of the war. Similar to
+                        the 1973 oil crisis, this event again showed the world how vulnerable and volatile the oil market is.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/USAF_F-16A_F-15C_F-15E_Desert_Storm_edit2.jpg/1920px-USAF_F-16A_F-15C_F-15E_Desert_Storm_edit2.jpg"
+                    width="400" title="Planes bombing oil wells">
+                    <img src="https://cck-law.com/wp-content/uploads/2019/06/2018.11.07-Oil-Well-Fires-in-Kuwait-e1542116700240.jpg"
+                    width="400" title="An oil well fire">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page15">
+            <h2 class="timetext">1997-1999</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In 1997, the Asian financial crisis, a major recession in the Asia region, occured and drastically reduced the area's
+                        need for oil. Oil prices dipped to nearly the lowest they've ever been since the discovery of oil the Saudi Arabia,
+                        reaching about $11 per barrel.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://petertasker.asia/site/wp-content/uploads/2017/06/IMFired2-1-1024x614.jpg"
+                    width="400" title="Asia financial crisis">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page16">
+            <h2 class="timetext">2001-2007</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        The 9/11 attacks resulted in a short-term steep increase in oil prices, though prices stabilized in the following months. Afterwards, 
+                        US went to invasion with Afghanistan,
+                        which didn't directly impact oil production, but rose global tensions and demand for oil, contributing to higher oil prices slowly 
+                        over time.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/WTC_smoking_on_9-11.jpeg/1280px-WTC_smoking_on_9-11.jpeg"
+                    width="400" title="9/11 attacks">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page17">
+            <h2 class="timetext">2008-2009</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        The 2008 global financial crisis lessened the demand for oil and generated economic uncertainty, which resulted in an 
+                        instant decrease in oil prices. Even to this day, oil prices still have not gone as high as they were before the
+                        financial crisis.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://d3i6fh83elv35t.cloudfront.net/static/2023/03/2011-09-30T120000Z_1504583417_GM1E7A10LN001_RTRMADP_3_USA-PROTESTS-WALLSTREET-1200x774.jpg"
+                    width="400" title="2008 financial crisis">
+                    <img src="https://advisor.visualcapitalist.com/wp-content/uploads/2022/05/oil-prices-share.jpg"
+                    width="400" title="Oil prices over time">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="page" id="page18">
+            <h2 class="timetext">2010-2014</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In 2010, the self-immolation of Mohamed Bouazizi occured, which we've talked about in this class before, and it
+                        resulted in a wave of Arab protests across the region, some of which are still going on to this day. Libya's government
+                        was overthrown and foreign oil operators were forced to leave, resulting in a 75% decrease in oil production (Jaffe).
+                        <br><br>
+                        At the same time, the US shale oil technologies improved, thus making the US less dependent on Gulf oil and increasing
+                        global oil supply.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_1080,h_540,g_auto/dpr_auto/f_auto/q_auto:eco/v1/arab-spring-gettyimages-108994884?_a=BAVMn6DY0"
+                    width="400" title="Arab uprisings">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page19">
+            <h2 class="timetext">2016-2019</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In 2016, Saudi Arabia's goverment launched Saudi Vision 2030, a long-term govermnet initative desgined to diversify
+                        the country's economy, society, and culturue by reducing its economic dependence on oil; they plan to increase
+                        urbanization and international tourism. The initiative has been critisicized due to human right violations such as
+                        poor working conditions that have resulted in over 21,000 worker deaths on the job and displacement of hundreds of
+                        thousands of people due to mega projects like Neom.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/Saudi_Vision_2030_logo.svg/1920px-Saudi_Vision_2030_logo.svg.png"
+                    width="400" title="Saudi Vision 2030 logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page20">
+            <h2 class="timetext">2020-Present</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        In 2020, the COVID-19 pandemic's lockdowns and reduced travel resulted in steep decrease in demand of oil. Gulf countries
+                        faced major revenue losses, justifying some of their projects like Saudi Vision 2030.
+                        <br><br>
+                        In the present day, the oil market continues to be volatile and uncertain. On Febuary 28th 2026, Donald Trump declared war
+                        on Iran, causing oil prices to jump nearly 50% since the onset of the war. Gas pumps across the world have seen much higher prices.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://cdn.who.int/media/images/default-source/mca/mca-covid-19/coronavirus-2.tmb-1920v.jpg?sfvrsn=4dba955c_19"
+                    width="400" title="Covid pandemic">
+                    <img src="https://dims.apnews.com/dims4/default/d6ec688/2147483647/strip/true/crop/2774x1850+0+0/resize/599x399!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fab%2F17%2F52150d8ae20bc7477b9f5a3d3aa1%2Fe51a389e09fa49dea82415c606be9f85"
+                    width="400" title="High gas pices due to Iran war">
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page21">
+            <h2 class="timetext">Thank you!</h2>
+            <div class="page-content">
+                <div class="text-container">
+                    <p class="main-text">
+                        Thank you for reading the timeline! I hope you enjoyed. Here are some of my sources: 
+                        <a href="https://docs.google.com/document/d/1gqKqzzEFICIFN9CFKJH2xaQ8gQcn9xTWxQL-LPY0c7k/edit?usp=sharing">link</a>.
+                    </p>
+                </div>
+                <div class = "image-container">
+                    <img src="https://eco-cdn.iqpc.com/eco/images/channel_content/images/biggest_oil_and_gas_companies.webp"
+                    width="400" title="Cool picture of oil and a sunset">
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    <script>
+    let currentPage = 1;
+    const totalPages = 21;
+
+    const bar = document.getElementById("timeline-bar");
+    for (let i = 1; i <= totalPages; i++) {
+        const seg = document.createElement("div");
+        seg.classList.add("timeline-seg");
+        if (i === 1) seg.classList.add("active");
+        seg.id = "seg" + i;
+        bar.appendChild(seg);
+    }
+
+    function updateBar() {
+        document.querySelectorAll(".timeline-seg").forEach((s, i) => {
+            s.classList.toggle("active", i + 1 === currentPage);
+        });
+    }
+
+    function nextPage() {
+        if (currentPage >= totalPages) return;
+        currentPage++;
+        document.getElementById("page-wrapper").style.transform = `translateX(-${(currentPage - 1) * 100}vw)`;
+        window.scrollTo(0, 0);
+        updateBar();
+        document.querySelector(".back-btn").style.display = "flex";
+        if (currentPage === totalPages) document.querySelector(".next-btn").style.display = "none";
+    }
+
+    function prevPage() {
+        if (currentPage <= 1) return;
+        currentPage--;
+        document.getElementById("page-wrapper").style.transform = `translateX(-${(currentPage - 1) * 100}vw)`;
+        window.scrollTo(0, 0);
+        updateBar();
+        document.querySelector(".next-btn").style.display = "flex";
+        if (currentPage === 1) document.querySelector(".back-btn").style.display = "none";
+    }
+    </script>
+    </body>
+</html>
